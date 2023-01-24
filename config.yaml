@@ -1,0 +1,14 @@
+data_directory: .
+model: 
+  - ACCESS-ESM1-5
+  - UKESM1-0-LL
+  - ACCESS-CM2 
+  - CAMS-ESM1-0 
+  - CESM2
+  - EC-Earth3
+  - GISS-E2-1-G
+  - MRI-ESM2-0
+  - NorESM2-MM
+variable: sfcWind
+experiment: ssp126
+rlzn: 1
