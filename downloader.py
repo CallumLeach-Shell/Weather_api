@@ -23,14 +23,20 @@ def config_loader():
     except FileNotFoundError as err:
         print(f'ERROR: {err}')
 
-def downloader():
-
-    # download the data to .nc files given the specified arguments
+def downloader(config):
+    # download the data to .nc files given the specified arguments from the configuration file.
     DownloadCmip6(model = config['model'], variable = config['variable'], experiment = config['experiment'], rlzn = config['rlzn'], dl_dir = config['data_directory'])
 
-# This command with search the database given specified arguments
-#SearchCmip6(model = "ACCESS-ESM1-5", variable = "sfcWind", experiment = "ssp126", rlzn = "1, 2, 3")
+def search(config):
+    # This command with search the database given specified arguments
+    SearchCmip6(model = config['model'], variable = config['variable'], experiment = config['experiment'])
 
 
 if __name__ == "__main__":
+
     config = config_loader()
+
+    if config['option'] == 'S':
+        search(config)
+    elif config['option'] == 'D':
+        downloader(config)

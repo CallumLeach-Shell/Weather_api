@@ -1,3 +1,4 @@
+option: D
 data_directory: .
 model: 
   - ACCESS-ESM1-5
