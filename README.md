@@ -9,7 +9,9 @@ This is a api to download data from CMIP6 and load into the api.
 
 ## Requirements
 To run this script, there are a few python requirements.
-Firstly we add the conda-forge channel.
+
+### Development Environment
+Firstly we add the conda-forge channel, then create a conda env from which to work.
 
 ```
 conda config --env --add channels conda-forge

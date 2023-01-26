@@ -11,4 +11,4 @@ model:
   - NorESM2-MM
 variable: sfcWind
 experiment: ssp126
-rlzn: 1
+rlzn: 34
