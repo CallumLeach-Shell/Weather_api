@@ -1,6 +1,7 @@
 ## This file will mask the global data by a lat-lon bounding box.
 
 import netCDF4
+import xarray as xr
 import numpy as np
 import matplotlib.pyplot as plt
 import json
@@ -45,6 +46,9 @@ def process_data(country_bbox: list):
 
     # Have north pointing upwards on the map.
     sfcWind = sfcWind[:,::-1]
+
+    # Write the subset data to a file
+    sfcWind.to_netcdf(path= './Processed/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
 
     plt.contourf(sfcWind)
     plt.show(block=True)
