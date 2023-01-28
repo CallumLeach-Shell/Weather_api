@@ -21,7 +21,6 @@ def load_data(country_code: str):
 
     return file, country_bbox
 
-
 def process_data(country_bbox: list):
 
     latbounds = [country_bbox[1], country_bbox[3]]
