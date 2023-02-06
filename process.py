@@ -31,7 +31,7 @@ def process_data(country_bbox: list, file):
     sfcWind = data_subset.sfcWind
 
     # Write the subset data to a file
-    #sfcWind.to_netcdf(path= './Processed/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
+    sfcWind.to_netcdf(path= './Processed/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
 
     plt.contourf(sfcWind[1000,:,:])
     plt.show(block=True)

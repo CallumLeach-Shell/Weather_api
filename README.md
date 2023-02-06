@@ -1,11 +1,6 @@
 # Weather_api
 
-This tool is a wrapper using the 'acccimp6' python api to download data effectivly from the CMIP6 datastores.
-
--- Aims:
-    - Access GCM: access-esm1.5
-    - 40 ensemble members
-    - Daily Surface Winds "sfcWind"
+This tool is two part, consisting of a downloader and netCDF processor. The downloader is a wrapper for the `acccmip6` api, which downloads data from the CMIP6 datastores given a set of parameters set in a `config.yaml` file. Onced downloaded, the processor will slice the netCDF files by a longitude and latitude bounding box saving as its own data subset.
 
 ## Requirements
 To run this script, there are a few python requirements.
