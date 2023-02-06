@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 import json
 
 def load_data(country_code: str):
-    file = netCDF4.Dataset('./CMIP6/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
-
+    #file = netCDF4.Dataset('./CMIP6/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
+    file = xr.open_dataset('./CMIP6/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
     # Load the country boundign box json file.
     with open("country_bounding_box.json", "r") as infile:
         bounding_box_raw = json.load(infile)
@@ -21,35 +21,19 @@ def load_data(country_code: str):
 
     return file, country_bbox
 
-def process_data(country_bbox: list):
+def process_data(country_bbox: list, file):
 
     latbounds = [country_bbox[1], country_bbox[3]]
     lonbounds = [country_bbox[0], country_bbox[2]]
 
-    lats = file.variables["lat"][:]
-    lons = file.variables["lon"][:]
-    time = file.variables["time"]
+    data_subset = file.sel(lat=slice(*latbounds), lon=slice(*lonbounds))
 
-    # latitude lower and upper index
-    latli = np.argmin( np.abs( lats - latbounds[0] ))
-    latui = np.argmin( np.abs( lats - latbounds[1] )) 
-
-    # longitude lower and upper index
-    lonli = np.argmin( np.abs( lons - lonbounds[0] ))
-    lonui = np.argmin( np.abs( lons - lonbounds[1] ))  
-
-    sfcWindSubset = file.variables['sfcWind']
-
-    # The +1 will add the next nearest observation, removes problems with only a single observation.
-    sfcWind = sfcWindSubset[1, latli:(latui) , lonli:(lonui)]
-
-    # Have north pointing upwards on the map.
-    sfcWind = sfcWind[:,::-1]
+    sfcWind = data_subset.sfcWind
 
     # Write the subset data to a file
-    sfcWind.to_netcdf(path= './Processed/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
+    #sfcWind.to_netcdf(path= './Processed/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
 
-    plt.contourf(sfcWind)
+    plt.contourf(sfcWind[1000,:,:])
     plt.show(block=True)
 
 if __name__ == '__main__':
@@ -59,4 +43,4 @@ if __name__ == '__main__':
 
     file, country_bbox = load_data(country_code)
 
-    process_data(country_bbox)
+    process_data(country_bbox, file)

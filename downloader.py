@@ -6,7 +6,6 @@ import yaml
 
 def config_loader():
     try:
-
         # Here we load the configuration file, which passes the parameters into the downloader.
         with open('config.yaml') as f:
             config = yaml.load(f, Loader=yaml.FullLoader)
@@ -36,6 +35,7 @@ if __name__ == "__main__":
 
     config = config_loader()
 
+    
     if config['option'] == 'S':
         search(config)
     elif config['option'] == 'D':
