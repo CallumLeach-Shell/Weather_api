@@ -8,6 +8,14 @@ To run this script, there are a few python requirements.
 ### Running the Script
 Running the script is achived with the use of a 'config.yaml' yaml file to determine all the downloading parameters. These parameters do not differ much from the original [acccmip6 Documentation](https://acccmip6.readthedocs.io/en/latest/index.html)
 
+#### Options:
+The first set of options can be used in any combination and in any sequence. 
+`model:`
+`variable:`
+`experiment:`
+`frequency:`
+`realm:`
+
 
 
 
@@ -21,3 +29,6 @@ Then install the `acccmip6` and `cmpdata` packages respectivly.
 ```
 conda install -c thassan acccmip6
 ```
+
+### Processing
+This section concerns the processing of netCDF files, and subsetting them by longitude and latitude.

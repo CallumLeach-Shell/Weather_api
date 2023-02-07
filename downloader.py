@@ -24,11 +24,11 @@ def config_loader():
 
 def downloader(config):
     # download the data to .nc files given the specified arguments from the configuration file.
-    DownloadCmip6(model = config['model'], variable = config['variable'], experiment = config['experiment'], rlzn = config['rlzn'], dl_dir = config['data_directory'])
+    DownloadCmip6(model = config['model'], variable = config['variable'], experiment = config['experiment'], frequency = config['frequency'], rlzn = config['rlzn'], dl_dir = config['data_directory'], year = config['year'])
 
 def search(config):
     # This command with search the database given specified arguments
-    SearchCmip6(model = config['model'], variable = config['variable'], experiment = config['experiment'])
+    SearchCmip6(model = config['model'], variable = config['variable'], experiment = config['experiment'], year = config['year'])
 
 
 if __name__ == "__main__":
@@ -36,7 +36,7 @@ if __name__ == "__main__":
     config = config_loader()
 
     
-    if config['option'] == 'S':
+    if config['output'] == 'S':
         search(config)
-    elif config['option'] == 'D':
+    elif config['output'] == 'D':
         downloader(config)

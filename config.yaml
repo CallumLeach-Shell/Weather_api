@@ -1,4 +1,4 @@
-option: D
+output: D
 data_directory: .
 model: 
   - ACCESS-ESM1-5
@@ -12,4 +12,9 @@ model:
   - NorESM2-MM
 variable: sfcWind
 experiment: ssp126
+frequency:
+realm:
 rlzn: 34
+node:
+skip:
+year:

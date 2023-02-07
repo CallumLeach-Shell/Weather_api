@@ -7,13 +7,14 @@ import matplotlib.pyplot as plt
 import json
 
 def load_data(country_code: str):
-    #file = netCDF4.Dataset('./CMIP6/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
+
     file = xr.open_dataset('./CMIP6/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
     # Load the country boundign box json file.
+
+    # Open the bounding box json file.
     with open("country_bounding_box.json", "r") as infile:
         bounding_box_raw = json.load(infile)
 
-    # Integrate the config.yaml to specify a bounding box, either manually or using country codes.
     if len(country_code) > 2:        
         country_bbox = next(bounding_box_raw[i][1] for i in bounding_box_raw if bounding_box_raw[i][0] == country_code)
     else:
@@ -33,7 +34,7 @@ def process_data(country_bbox: list, file):
     # Write the subset data to a file
     sfcWind.to_netcdf(path= './Processed/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
 
-    plt.contourf(sfcWind[1000,:,:])
+    plt.contourf(sfcWind[1,:,:])
     plt.show(block=True)
 
 if __name__ == '__main__':
