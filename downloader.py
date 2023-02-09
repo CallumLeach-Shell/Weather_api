@@ -1,4 +1,6 @@
-### This file will be to gather the data from relevant sources and perform the relevant transformations.
+"""
+Using the acccmip6 api, we load configuration parameters from a config.yaml file and parse them into a downloader. Which will download relevent data from the CMIP6 datastores.
+"""
 
 from acccmip6.access_cm import SearchCmip6
 from acccmip6.download_dat import DownloadCmip6
@@ -20,15 +22,21 @@ def config_loader():
         return config
     
     except FileNotFoundError as err:
-        print(f'ERROR: {err}')
+        print(f'LOAD CONFIG ERROR: {err}')
 
 def downloader(config):
-    # download the data to .nc files given the specified arguments from the configuration file.
-    DownloadCmip6(model = config['model'], variable = config['variable'], experiment = config['experiment'], frequency = config['frequency'], rlzn = config['rlzn'], dl_dir = config['data_directory'], year = config['year'])
+    try:
+        # download the data to .nc files given the specified arguments from the configuration file.
+        DownloadCmip6(model = config['model'], variable = config['variable'], experiment = config['experiment'], frequency = config['frequency'], realm = config['realm'], rlzn = config['rlzn'], dl_dir = config['data_directory'], year = config['year'])
+    except Exception as ex:
+        print(f'DOWNLOADER ERROR: {ex}')
 
 def search(config):
-    # This command with search the database given specified arguments
-    SearchCmip6(model = config['model'], variable = config['variable'], experiment = config['experiment'], year = config['year'])
+    try:
+        # This command with search the database given specified arguments
+        SearchCmip6(model = config['model'], variable = config['variable'], experiment = config['experiment'], year = config['year'], time='yes')
+    except Exception as ex:
+        print(f'SEARCH ERROR: {ex}')
 
 
 if __name__ == "__main__":
