@@ -14,7 +14,7 @@ variable: sfcWind
 experiment: ssp126
 frequency:
 realm:
-rlzn: 34
+rlzn:
 node:
 skip:
 year:
