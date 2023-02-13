@@ -1,5 +1,5 @@
 """
-Using the acccmip6 api, we load configuration parameters from a config.yaml file and parse them into a downloader. Which will download relevent data from the CMIP6 datastores.
+Using the acccmip6 api, we load configuration parameters from a config.yaml file and parse them into a downloader. Which will download relevent data from the ESGF CMIP6 datastores.
 """
 
 from acccmip6.access_cm import SearchCmip6
@@ -12,7 +12,7 @@ def config_loader():
         with open('config.yaml') as f:
             config = yaml.load(f, Loader=yaml.FullLoader)
 
-        # With lists specified in the yaml file, the acccmip6 api requires it to be comma seperated variables.
+        # With lists specified in the yaml file, the acccmip6 api requires it to be comma seperated variables. We convert here.
         for key, value in config.items():
             if type(value) is list:
                 config[key] = ','.join(config[key])

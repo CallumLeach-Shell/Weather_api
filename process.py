@@ -10,7 +10,7 @@ from mpl_toolkits.basemap import Basemap
 def load_data(country_code: str):
 
     file = xr.open_dataset('./CMIP6/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
-    # Load the country boundign box json file.
+    # Load the country bounding box json file.
 
     # Open the bounding box json file.
     with open("country_bounding_box.json", "r") as infile:
@@ -38,7 +38,7 @@ def process_data(country_bbox: list, file):
 if __name__ == '__main__':
 
     # Specify the country code or the country name to search the loaded bounding box json
-    country_code = 'CN'
+    country_code = 'AU'
 
     file, country_bbox = load_data(country_code)
 
