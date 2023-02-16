@@ -12,22 +12,24 @@ def config_loader():
         with open('config.yaml') as f:
             config = yaml.load(f, Loader=yaml.FullLoader)
 
+
         # With lists specified in the yaml file, the acccmip6 api requires it to be comma seperated variables. We convert here.
         for key, value in config.items():
             if type(value) is list:
-                config[key] = ','.join(config[key])
+                config[key] = ','.join(map(str, config[key]))
             else:
                 continue
-        
+
         return config
-    
+        
     except FileNotFoundError as err:
         print(f'LOAD CONFIG ERROR: {err}')
+
 
 def downloader(config):
     try:
         # download the data to .nc files given the specified arguments from the configuration file.
-        DownloadCmip6(model = config['model'], variable = config['variable'], experiment = config['experiment'], frequency = config['frequency'], realm = config['realm'], rlzn = config['rlzn'], dl_dir = config['data_directory'], year = config['year'])
+        DownloadCmip6(model = config['model'], variable = config['variable'], experiment = config['experiment'], frequency = config['frequency'], realm = config['realm'], rlzn = config['rlzn'], path = config['data_directory'], year = config['year'])
     except Exception as ex:
         print(f'DOWNLOADER ERROR: {ex}')
 
@@ -41,9 +43,9 @@ def search(config):
 
 if __name__ == "__main__":
 
+    # Load the configurations, the azure env and the cmip6 yaml file.
     config = config_loader()
 
-    
     if config['output'] == 'S':
         search(config)
     elif config['output'] == 'D':

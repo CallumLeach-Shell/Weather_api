@@ -1,20 +1,13 @@
-output: D
-data_directory: .
+output: S
+data_directory: ./CMIP6
 model: 
   - ACCESS-ESM1-5
   - UKESM1-0-LL
-  - ACCESS-CM2 
-  - CAMS-ESM1-0 
-  - CESM2
-  - EC-Earth3
-  - GISS-E2-1-G
-  - MRI-ESM2-0
-  - NorESM2-MM
-variable: sfcWind
 experiment: ssp126
 frequency:
+variable: sfcWind
 realm:
-rlzn:
+rlzn: 1
 node:
 skip:
 year:
