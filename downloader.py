@@ -13,18 +13,17 @@ def config_loader():
             config = yaml.load(f, Loader=yaml.FullLoader)
             config = config['Downloader']
 
-
-        # With lists specified in the yaml file, the acccmip6 api requires it to be comma seperated variables. We convert here.
-        for key, value in config.items():
-            if type(value) is list:
-                config[key] = ','.join(map(str, config[key]))
-            else:
-                continue
-
-        return config
-        
     except FileNotFoundError as err:
         print(f'LOAD CONFIG ERROR: {err}')
+
+    # With lists specified in the yaml file, the acccmip6 api requires it to be comma seperated variables. We convert here.
+    for key, value in config.items():
+        if type(value) is list:
+            config[key] = ','.join(map(str, config[key]))
+        else:
+            continue
+
+    return config
 
 
 def downloader(config):
