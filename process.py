@@ -18,6 +18,15 @@ def load_data():
     
     except FileNotFoundError as err:
         print(f"LOAD CONFIG ERROR: {err}")
+    
+    # Error Conditions, check that to_process and country_code are listed in the yml file
+
+    if config['to_process'] is None:
+        print("to_process is empty in yml file")
+        raise ValueError
+    elif config['country_code'] is None:
+        print("country_code is empty in yml file")
+        raise ValueError
 
     # A few conditions when processing input from yaml file.
     if os.path.isdir(config['to_process'][0]):
