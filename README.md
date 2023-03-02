@@ -48,18 +48,6 @@ model:
   - CAMS-ESM1-0 
 ```
 
-### Development Environment
-Firstly we add the conda-forge channel, then create a conda env from which to work.
-
-```
-conda config --env --add channels conda-forge
-```
-Then install the `acccmip6` and `cmpdata` packages respectivly.
-```
-conda install -c thassan acccmip6
-```
-
-
 ## Processor Script
 
 ### Processing
