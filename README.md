@@ -18,7 +18,12 @@ WIP, need to write this section when setup in the VM
 ## Downloader Script
 
 ### Running the Script
-Running the script is achived with the use of a 'config.yaml' yaml file to determine all the downloading parameters. These parameters do not differ much from the original [acccmip6 Documentation](https://acccmip6.readthedocs.io/en/latest/index.html)
+To run the `downloader.py` script simply enter the **Weather_API** directory and run the following command:
+```python
+python downloader.py
+```
+
+There is no need to pass any arguments to the script, as they are all specified from within the `config.yaml` file.
 
 #### Options:
 For a full list of options, please look at the documentation link listed at the bottom of this page.
@@ -51,8 +56,20 @@ model:
 
 ## Processor Script
 
-### Processing
-This section concerns the processing of netCDF files, and subsetting them by longitude and latitude.
+### Running the Script
+To run the `process.py` script simply enter the **Weather_API** directory and run the following command:
+```python
+python process.py
+```
+
+Like the `downloader.py` script there is no need to pass any arguments when running.
+
+#### Required Arguments
+* `to_process`: Either a list of specifc file paths, or the path of a directory you want to run the processor. (Note that you can only specify a single directory at this time.)
+* `country_code`: Either a country code or the country name, which will be used to subset the data based on pre-defined latitude-longitude bounding boxes.
+
+#### Optional Arguments
+* `output_directory`: This is optional and will default to `./Processed/`. If the directory specified does not exist, then one shall be created.
 
 ## Additional Links:
 [acccmip6 Documentation](https://acccmip6.readthedocs.io/en/latest/index.html)
