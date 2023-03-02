@@ -9,11 +9,12 @@ import json
 import yaml
 import os
 
-def load_data(country_code: str):
+def load_data():
 
     try:
         with open('config.yaml') as f:
             config = yaml.load(f, Loader=yaml.FullLoader)
+            config = config['Processor']
     
     except FileNotFoundError as err:
         print(f"LOAD CONFIG ERROR: {err}")
@@ -24,6 +25,8 @@ def load_data(country_code: str):
 
     else:
         files = config['to_process']
+
+    country_code = config['country_code']
 
     # Open the bounding box json file.
     with open("country_bounding_box.json", "r") as infile:
@@ -50,14 +53,10 @@ def process_data(country_bbox: list, dataset, file_name:str):
 
 if __name__ == '__main__':
 
-    # Specify the country code or the country name to search the loaded bounding box json
-    country_code = 'AU'
-
-    files, country_bbox = load_data(country_code)
+    files, country_bbox = load_data()
 
     for file in files:
         dataset = xr.open_dataset(file)
         file_name = os.path.basename(file)
-
 
         process_data(country_bbox, dataset, file_name)

@@ -1,16 +1,21 @@
-output: D
-data_directory: ./CMIP6
-to_process:
-  - ./CMIP6/sfcWind_Amon_ACCESS-ESM1-5_ssp126_r1i1p1f1_gn_210101-230012.nc
-  - ./CMIP6/sfcWind_Amon_ACCESS-ESM1-5_ssp126_r1i1p1f1_gn_201501-210012.nc
-model: 
-  - ACCESS-ESM1-5
-  - UKESM1-0-LL
-experiment: ssp126
-frequency:
-variable: sfcWind
-realm:
-rlzn: 1
-node:
-skip:
-year:
+
+Downloader:
+  output: D
+  data_directory: ./CMIP6
+  model: 
+    - ACCESS-ESM1-5
+    - UKESM1-0-LL
+  experiment: ssp126
+  frequency:
+  variable: sfcWind
+  realm:
+  rlzn: 1
+  node:
+  skip:
+  year:
+
+Processor:
+  to_process:
+    - ./CMIP6/sfcWind_Amon_ACCESS-ESM1-5_ssp126_r1i1p1f1_gn_210101-230012.nc
+    - ./CMIP6/sfcWind_Amon_ACCESS-ESM1-5_ssp126_r1i1p1f1_gn_201501-210012.nc
+  country_code: AU

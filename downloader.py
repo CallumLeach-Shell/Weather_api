@@ -11,6 +11,7 @@ def config_loader():
         # Here we load the configuration file, which passes the parameters into the downloader.
         with open('config.yaml') as f:
             config = yaml.load(f, Loader=yaml.FullLoader)
+            config = config['Downloader']
 
 
         # With lists specified in the yaml file, the acccmip6 api requires it to be comma seperated variables. We convert here.
