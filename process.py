@@ -1,14 +1,29 @@
-## This file will mask the global data by a lat-lon bounding box.
+"""
+This file will mask the global data by a lat-lon bounding box, then save the resulting mask as a .nc file in the Processed directory
+"""
 
 import netCDF4
 import xarray as xr
 import numpy as np
 import json
+import yaml
+import os
 
 def load_data(country_code: str):
 
-    file = xr.open_dataset('./CMIP6/sfcWind_Amon_ACCESS-ESM1-5_ssp126_r1i1p1f1_gn_210101-230012.nc')
-    # Load the country bounding box json file.
+    try:
+        with open('config.yaml') as f:
+            config = yaml.load(f, Loader=yaml.FullLoader)
+    
+    except FileNotFoundError as err:
+        print(f"LOAD CONFIG ERROR: {err}")
+
+    # A few conditions when processing input from yaml file.
+    if os.path.isdir(config['to_process'][0]):
+        files = os.listdir(config['to_process'])
+
+    else:
+        files = config['to_process']
 
     # Open the bounding box json file.
     with open("country_bounding_box.json", "r") as infile:
@@ -19,25 +34,30 @@ def load_data(country_code: str):
     else:
         country_bbox = bounding_box_raw[country_code][1]
 
-    return file, country_bbox
+    return files, country_bbox
 
-def process_data(country_bbox: list, file):
+def process_data(country_bbox: list, dataset, file_name:str):
 
     latbounds = [country_bbox[1], country_bbox[3]]
     lonbounds = [country_bbox[0], country_bbox[2]]
 
-    data_subset = file.sel(lat=slice(*latbounds), lon=slice(*lonbounds))
+    data_subset = dataset.sel(lat=slice(*latbounds), lon=slice(*lonbounds))
 
     sfcWind = data_subset.sfcWind
 
     # Write the subset data to a file
-    sfcWind.to_netcdf(path= './Processed/sfcWind_Amon_ACCESS-ESM1-5_ssp126_r1i1p1f1_gn_210101-230012.nc')
+    sfcWind.to_netcdf(path= ''.join(['./Processed/', file_name]))
 
 if __name__ == '__main__':
 
     # Specify the country code or the country name to search the loaded bounding box json
     country_code = 'AU'
 
-    file, country_bbox = load_data(country_code)
+    files, country_bbox = load_data(country_code)
 
-    process_data(country_bbox, file)
+    for file in files:
+        dataset = xr.open_dataset(file)
+        file_name = os.path.basename(file)
+
+
+        process_data(country_bbox, dataset, file_name)

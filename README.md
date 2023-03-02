@@ -26,6 +26,7 @@ For a full list of options, please look at the documentation link listed at the 
 #### Required Arguments:
 * `output`: Takes an output type. `S` for search functionality and `D` for downloading from the database.
 * `data_directory`: This is hard coded to be a Azure file share location.
+* `to_process`: This is only required for processing, dont worry about it for the downloader.
 
 #### Optional Arguments:
 * `model`: Model names (you can specify multiple model names)
