@@ -3,13 +3,11 @@
 import netCDF4
 import xarray as xr
 import numpy as np
-import matplotlib.pyplot as plt
 import json
-from mpl_toolkits.basemap import Basemap
 
 def load_data(country_code: str):
 
-    file = xr.open_dataset('./CMIP6/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
+    file = xr.open_dataset('./CMIP6/sfcWind_Amon_ACCESS-ESM1-5_ssp126_r1i1p1f1_gn_210101-230012.nc')
     # Load the country bounding box json file.
 
     # Open the bounding box json file.
@@ -33,7 +31,7 @@ def process_data(country_bbox: list, file):
     sfcWind = data_subset.sfcWind
 
     # Write the subset data to a file
-    sfcWind.to_netcdf(path= './Processed/sfcWind_day_ACCESS-ESM1-5_ssp126_r34i1p1f1_gn_20150101-20641231.nc')
+    sfcWind.to_netcdf(path= './Processed/sfcWind_Amon_ACCESS-ESM1-5_ssp126_r1i1p1f1_gn_210101-230012.nc')
 
 if __name__ == '__main__':
 

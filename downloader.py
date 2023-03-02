@@ -35,7 +35,7 @@ def downloader(config):
 
 def search(config):
     try:
-        # This command with search the database given specified arguments
+        # search the database given specified arguments
         SearchCmip6(model = config['model'], variable = config['variable'], experiment = config['experiment'], year = config['year'], time='yes')
     except Exception as ex:
         print(f'SEARCH ERROR: {ex}')
