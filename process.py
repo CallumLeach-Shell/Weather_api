@@ -42,12 +42,12 @@ def load_data():
     country_code = config['country_code']
     output_directory = config['output_directory']
 
-    # Check that the output_directory exists. If not then create it.
-    if not os.path.isdir(output_directory):
+    # Check that the output_directory exists and is not None. If it does not exist, create it.
+    if output_directory is not None and os.path.isdir(output_directory):
         os.makedirs(output_directory)
     else:
         pass
-    
+
     # Open the bounding box json file.
     with open("country_bounding_box.json", "r") as infile:
         bounding_box_raw = json.load(infile)
@@ -59,7 +59,8 @@ def load_data():
 
     return files, country_bbox, output_directory
 
-def process_data(country_bbox: list, dataset, file_name:str, output_directory = './Processed/'):
+def process_data(country_bbox: list, dataset, file_name:str, output_directory):
+    output_directory = output_directory or './Processed/'
 
     latbounds = [country_bbox[1], country_bbox[3]]
     lonbounds = [country_bbox[0], country_bbox[2]]
@@ -74,7 +75,6 @@ def process_data(country_bbox: list, dataset, file_name:str, output_directory = 
 if __name__ == '__main__':
 
     files, country_bbox, output_directory = load_data()
-
     for file in files:
         dataset = xr.open_dataset(file)
         file_name = os.path.basename(file)

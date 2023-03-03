@@ -16,6 +16,6 @@ Downloader:
 
 Processor:
   to_process: 
-    - ./CMIP6/sfcWind_Amon_ACCESS-ESM1-5_ssp126_r1i1p1f1_gn_201501-210012.nc
+    - ./CMIP6
   country_code: AU
-  output_directory: ./Test
+  output_directory:
