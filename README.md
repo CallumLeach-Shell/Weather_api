@@ -55,6 +55,7 @@ model:
 ```
 
 ## Processor Script
+The processor script `process.py` is designed to take the downloaded netCDF files and subset the data by specified latitude-longitude bounding boxes.
 
 ### Running the Script
 To run the `process.py` script simply enter the **Weather_API** directory and run the following command:
