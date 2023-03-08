@@ -1,7 +1,7 @@
 
 Downloader:
   output: D
-  data_directory: Z:\project\ClimateAnalysis\Data
+  data_directory: ./CMIP6
   model: ACCESS-ESM1-5
   experiment: ssp126
   frequency:
@@ -14,6 +14,6 @@ Downloader:
 
 Processor:
   to_process: 
-    - Z:\project\ClimateAnalysis\Process
+    - ./CMIP6
   country_code: AU
-  output_directory:
+  output_directory: ./Processed

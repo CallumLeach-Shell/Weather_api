@@ -42,11 +42,10 @@ def load_data():
     country_code = config['country_code']
     output_directory = config['output_directory']
 
-    # Check that the output_directory exists and is not None. If it does not exist, create it.
-    if output_directory is not None and os.path.isdir(output_directory):
-        os.makedirs(output_directory)
-    else:
+    if output_directory == './Processed':
         pass
+    elif output_directory is not None and os.path.isdir(output_directory):
+        os.makedirs(output_directory)
 
     # Open the bounding box json file.
     with open("country_bounding_box.json", "r") as infile:
