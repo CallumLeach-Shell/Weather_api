@@ -1,13 +1,11 @@
 
 Downloader:
   output: D
-  data_directory: ./CMIP6
-  model: 
-    - ACCESS-ESM1-5
-    - UKESM1-0-LL
+  data_directory: ../Learning/Solar/Data
+  model: ACCESS-ESM1-5
   experiment: ssp126
   frequency:
-  variable: sfcWind
+  variable: rsds
   realm:
   rlzn: 1
   node:
