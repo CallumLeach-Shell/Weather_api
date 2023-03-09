@@ -14,6 +14,7 @@ def load_data():
     try:
         with open('config.yaml') as f:
             config = yaml.load(f, Loader=yaml.FullLoader)
+            variable = config['Downloader']['variable']
             config = config['Processor']
         
         # Convert any single path strings to a list
@@ -42,10 +43,18 @@ def load_data():
     country_code = config['country_code']
     output_directory = config['output_directory']
 
-    if output_directory == './Processed':
-        pass
-    elif output_directory is not None and os.path.isdir(output_directory):
+    # Check that the output_directory exists and is not None. If it does not exist, create it.
+    if output_directory is None:
+        output_directory = './Processed'
+
+        if os.path.exists(output_directory) == False:
+            os.makedirs(output_directory)
+        else:
+            pass
+
+    elif os.path.exists(output_directory) == False:
         os.makedirs(output_directory)
+
 
     # Open the bounding box json file.
     with open("country_bounding_box.json", "r") as infile:
@@ -56,26 +65,26 @@ def load_data():
     else:
         country_bbox = bounding_box_raw[country_code][1]
 
-    return files, country_bbox, output_directory
+    return files, country_bbox, output_directory, variable
 
-def process_data(country_bbox: list, dataset, file_name:str, output_directory):
-    output_directory = output_directory or './Processed/'
+def process_data(country_bbox: list, dataset, file_name:str, output_directory, variable:str):
+    output_directory = output_directory or './Processed'
 
     latbounds = [country_bbox[1], country_bbox[3]]
     lonbounds = [country_bbox[0], country_bbox[2]]
 
     data_subset = dataset.sel(lat=slice(*latbounds), lon=slice(*lonbounds))
 
-    sfcWind = data_subset.sfcWind
+    variable_subset = data_subset[variable]
 
     # Write the subset data to a file
-    sfcWind.to_netcdf(path= os.path.join(output_directory, file_name))
+    variable_subset.to_netcdf(path= os.path.join(output_directory, file_name))
 
 if __name__ == '__main__':
 
-    files, country_bbox, output_directory = load_data()
+    files, country_bbox, output_directory, variable = load_data()
     for file in files:
         dataset = xr.open_dataset(file)
         file_name = os.path.basename(file)
 
-        process_data(country_bbox, dataset, file_name, output_directory)
+        process_data(country_bbox, dataset, file_name, output_directory, variable)

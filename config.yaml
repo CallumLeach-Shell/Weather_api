@@ -16,4 +16,4 @@ Processor:
   to_process: 
     - ./CMIP6
   country_code: AU
-  output_directory: ./Processed
+  output_directory:
