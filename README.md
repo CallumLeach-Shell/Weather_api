@@ -3,7 +3,7 @@
 This tool is two part, consisting of a downloader and netCDF processor. The downloader is a wrapper for the `acccmip6` api, which downloads data from the CMIP6 datastores given a set of parameters set in a `config.yaml` file. Onced downloaded, the processor will slice the netCDF files by a longitude and latitude bounding box saving as its own data subset.
 
 ## Development Environment Setup
-When running locally in a Development environment, there are a few things to note about the setup.
+When running locally in a Development environment, there are a few things to note about the setup. 
 
 ### Requirements
 It is recommended to setup a virtual environment (not covered here), then install the dependencies as follows:
@@ -12,7 +12,7 @@ pip install -r requirements.txt
 ```
 
 ## Production Environment Setup
-WIP, need to write this section when setup in the VM
+In production this application will require only 4 files. Both the `downloader.exe`, `process.exe` scripts and their respective configuration files `config.yaml` `country_bounding_box.json`. These files are to be placed in the same directory and can be run from anywhere. Simply alter the parameters in `config.yaml` to your liking and reach each `.exe` file.
 
 
 ## Downloader Script
